@@ -1,4 +1,4 @@
-# java_web-jsp-servelt   
+# Java_web (JSP, Servelt)   
 
 >## 개발환경 설정   
 
