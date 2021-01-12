@@ -25,7 +25,7 @@ readlink -f [링크위치]
 sudo update-alternatives --config java
 ``` 
 
-<br>
+<br><br>
 
 >### [2] 톰캣 설치   
 
@@ -55,7 +55,7 @@ docker run 옵션
 ```
 docker run -dit --name [별칭] -p [호스트 포트]:[컨테이너 포트] [도커 이미지 이름]
 ```   
-
+<br><br>
 
 >### [3] 오라클 설치   
 
@@ -97,7 +97,7 @@ create user [유저id] identified by [password];
 grant connect, resource, dba to [유저 id];
 ```
 
-
+<br><br>
 
 
 
