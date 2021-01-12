@@ -1,6 +1,12 @@
 # java_web-jsp-servelt-   
 
 >## 개발환경 설정   
+
+<br>
+
+```
+기본환경 - Ubuntu20.04, Docker20.10.1
+```
 <br>
 
 >### [1] JDK 설치  
