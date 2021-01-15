@@ -129,7 +129,7 @@ docker cp [파일이름.war] [tomcat container 이름]:/usr/local/webapps/
 
 **tomcat container를 구동시킬 때, 설정한 포트로 들어가서 보면, 잘 작동하고 있다.**   
 
-*예) localhost:8080/[프로젝트 폴더 명]/[파일명.html]*
+*예) localhost:8080 / [프로젝트 폴더 명] / [파일명.html]*
 
 
 
