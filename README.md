@@ -187,6 +187,24 @@ docker cp [파일이름.war] [tomcat container 이름]:/usr/local/webapps/
 </servlet-mapping>
 ```
 
+<br>
+<br>
+
+>### url 매핑 (어노테이션 이용)   
+
+<br>
+
+**class 파일이 속한 package명을 web.xml을 이용해서 매핑을 하게 되면 다중 매핑 작업 시에 복잡해진다.**   
+
+**따라서 class 파일이 아니라 servlet을 생성해서 바로 매핑하게끔 한다.**   
+
+
+```
+--- sec01.ex01 의 Servlet파일 ---
+
+@WebServlet("/third")  *xml파일에 적는 것 보다 간편하고 효율적이다.
+
+```
 
 
 
