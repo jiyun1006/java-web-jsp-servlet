@@ -208,6 +208,61 @@ docker cp [파일이름.war] [tomcat container 이름]:/usr/local/webapps/
 
 ```
 
+<br>
+<br>
+
+>### 클라이언트 요청 처리   
+
+<br>
+
+**서블릿 파일에서 메서드를 이용해서 form태그의 요청을 처리**   
+
+**다중 요청이 있는 경우 input태그의 name값을 기준으로 묶어서 처리**   
+
+<br>
+
+*getParameterValues메서드 이용 (반복문 이용해서 상태 확인)*      
+
+```java
+
+---subject라는 name값을 가진 요청 배열로 받음---
+
+String[] subject = request.getParameterValues("subject");
+		
+for(String str : subject) {
+	System.out.println("선택한 과목 : " + str);
+}
+```
+
+<br>
+
+**name이 다르거나 많은 요청이 있을 경우 비효율적.**   
+
+**열거형 Enumeration을 이용해서 form태그의 모든 name값들을 받은 후, 반복문으로 처리**   
+
+<br>
+
+*getParameterNames 메서드 이용*   
+*nextElement메서드는 현재 위치의 열거형 인자를 내뱉고, 다음 위치로 이동시킨다.*   
+
+```java
+
+# form 태그의 모든 input값 모음.
+Enumeration enu = request.getParameterNames();
+
+while (enu.hasMoreElements())
+{	
+
+#다음 인자를 선택하기 위해 nextElement사용.
+ String name = (String) enu.nextElement();
+ String[] values = request.getParameterValues(name);
+ for (String value : values)
+ {
+  System.out.println("name=" + name + ", value=" + value);
+ }
+}
+```
+
 
 
 
