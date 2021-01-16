@@ -33,7 +33,7 @@ sudo update-alternatives --config java
 
 <br><br>
 
->### [2] 톰캣 설치   
+>### [2] Tomcat 설치   
 
 <br>
 
@@ -112,7 +112,7 @@ grant connect, resource, dba to [유저 id];
 <br>
 <br>
 
->## 톰캣   
+>## Tomcat    
 
 <br>
 
