@@ -198,7 +198,9 @@ docker cp [파일이름.war] [tomcat container 이름]:/usr/local/webapps/
 
 **따라서 class 파일이 아니라 servlet을 생성해서 바로 매핑하게끔 한다.**   
 
+<br>
 
+*sec01.ex01의 url을 third로 매핑*
 ```
 --- sec01.ex01 의 Servlet파일 ---
 
