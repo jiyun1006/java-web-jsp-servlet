@@ -211,7 +211,7 @@ docker cp [파일이름.war] [tomcat container 이름]:/usr/local/webapps/
 <br>
 <br>
 
->### 클라이언트 요청 처리   
+>### 클라이언트 요청 처리(request)     
 
 <br>
 
@@ -262,8 +262,41 @@ while (enu.hasMoreElements())
  }
 }
 ```
+<br><br>
 
+>### 클라이언트 요청에 대한 응답(response)   
 
+<br>
+
+**form태그의 request를 받아오고 웹 브라우저에 응답을 하지 않아, 브라우저상의 변화가 보이지 않는다.**   
+
+**response를 담당하는 servlet파일을 만들어 브라우저로 쏴준다.**   
+
+<br>
+ 
+*form 태그의 action값과 servlet url을 매핑한다.*    
+
+*setContentType 메서드를 이용해서 응답할 데이터의 종류를 정한다.*   
+
+```java
+# 응답할 데이터가 html임을 설정.
+response.setContentType("text/html;charset=utf-8");
+
+# PrintWriter 객체를 설정
+PrintWriter out = response.getWriter();
+
+# html 
+String data = "<html>";
+	data += "<body>";
+	data += "아이디 : " + id;
+	data += "<br>";
+	data += "패스워드 : " + pw;
+	data += "</html>";
+	data += "</body>";
+	
+# PrintWriter 객체를 이용해 데이터 출력.	
+	out.print(data);
+```
 
 
 
