@@ -133,6 +133,65 @@ docker cp [파일이름.war] [tomcat container 이름]:/usr/local/webapps/
 
 
 
+<br><br>
+
+>## Servlet   
+
+<br>
+
+**서버 쪽에서 실행되면서 기능을 수행한다. (웹 브라우저에서 요청 시 기능을 수행)**      
+
+**스레드 방식으로 실행되며, 자바의 특징을 가진다. (객체지향)**   
+
+**HttpServlet 클래스를 상속받아서 사용한다.**   
+
+<br>
+
+*서블릿 생명주기 메서드*   
+
+```
+초기화 - init()
+
+작업수행 - doGet(), doPost()
+
+종료 - destroy()
+```
+
+<br>
+
+
+*HttpServlet클래스의 메서드를 다시 사용하기 위해서 Override 어노테이션을 이용한다.*   
+
+
+
+```java
+---예시---
+
+@Override
+	public void init() throws ServletException{
+		System.out.println("init 메서드 호출");
+	}
+```
+<br>
+
+**tomcat에 띄우기 위해 긴 패키지 이름을 web.xml에서 다시 설정한다.**   
+
+```xml
+<servlet>
+ <servlet-name>aaa</servlet-name>  * servlet태그와 servlet-mapping태그를 연결 시키는 태그.
+ <servlet-class>sec01.ex01.FirstServlet</servlet-class>  * 기존 패키지 이름
+</servlet>
+<servlet-mapping>
+ <servlet-name>aaa</servlet-name>
+ <url-pattern>/first</url-pattern>  * 웹 브라우저에서 요청하는 매핑 이름.
+</servlet-mapping>
+```
+
+
+
+
+
+
 
  
 
