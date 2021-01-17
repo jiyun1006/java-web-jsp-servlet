@@ -6,6 +6,8 @@
 
 ```
 기본환경 - Ubuntu20.04, Docker20.10.1
+
+build path 설정 - servlet-api.jar, ojdbc8.jar
 ```
 <br>
 
