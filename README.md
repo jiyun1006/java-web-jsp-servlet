@@ -300,8 +300,109 @@ String data = "<html>";
 	out.print(data);
 ```
 
+<br><br>
+
+>### 서블릿 데이터베이스 연동   
+
+<br>
+
+**클라이언트의 db에 관련된 request를 DAO와 VO 클래스를 이용해서 해결한다.**   
+
+**MemberServlet에서 요청을 받고 MemberDAO객체를 생성하고, DB와 연동한다.**   
+
+**이후에 조회된 정보를 MemberVO속성에 설정 후, list만들어 MemberServlet로 가져온다.**    
+
+<br>
+
+*MemberServlet 코드 일부*   
+
+```java
+MemberDAO dao = new MemberDAO(); --> sql문으로 조회할 MemberDAO 객체 생성.
+
+List<MemberVO> list = dao.listMembers(); --> listMember() 메서드로 회원 정보 조회.
+
+for (int i = 0; i < list.size(); i++) {
+	MemberVO memberVO = list.get(i); --> db에서 가져온 항목들 하나씩 순회
+	String id = memberVO.getId();
+	String pwd = memberVO.getPwd();
+	String name = memberVO.getName();
+	String email = memberVO.getEmail();
+	Date joinDate = memberVO.getJoinDate();
+	out.print("<tr><td>" + id + "</td><td>" + pwd + "</td><td>" + name + "</td><td>" + email + "</td><td>"
+			+ joinDate + "</td></tr>");
+
+}
+```    
+
+<br>
+
+*MemberDAO에서 listMembers 메서드*    
+
+```java
+List<MemberVO> list = new ArrayList<MemberVO>();
+try
+{
+	connDB();  --> 연결된 db와의 정보로 데이터베이스와 연결하는 메서드
+	
+	String query = "select * from t_member";
+	System.out.println(query);
+	ResultSet rs = stmt.executeQuery(query);  --> sql문으로 db 조회.
+	while(rs.next())
+	{  
+	 String id = rs.getString("id");           ---> 조회한 레코드의 칼럼값을 받고, MemberVO 객체에 속성 설정.
+	 String pwd = rs.getString("pwd");
+	 String name = rs.getString("name");
+	 String email = rs.getString("email");
+	 Date joinDate = rs.getDate("joinDate");
+	 MemberVO vo = new MemberVO();
+	 vo.setId(id);
+	 vo.setPwd(pwd);
+	 vo.setName(name);
+	 vo.setEmail(email);
+	 vo.setJoinDate(joinDate);
+	 
+	 list.add(vo);  --> MemberVO 객체를 다시 ArrayList에 저장 (MemberServlet
+	}
+	
+	rs.close();  --> 늦게 연것부터 닫는다.
+	stmt.close();
+	con.close();
+```   
+
+<br>
+
+>#### MemberDAO - DB연결 상수   
+
+<br>
 
 
+**DB와의 연결을 위해 driver, url, user, pwd 네 가지의 상수를 설정해야 한다.**   
+
+**주의할 점은 현재 docker로 oracle과 tomcat을 구동중이니, 이 둘을 연결시켜야 한다.**   
+
+**docker상의 tomcat의 lib폴더에 ojdbc7.jar 파일을 넣어준다.(oracle11이상버전)**   
+
+<br>
+
+### **또한 docker상의 oracle의 ip주소를 알아내어, url 상수에 넣어준다.(local ip를 넣으면 연결이 안된다.)**   
+
+*docker inspect [컨테이너 명] 로 해당 컨테이너의 ip주소를 알 수 있다.*   
+
+<br>
+
+*memberDAO에서 DB와의 연결을 위해 설정할 상수*   
+
+```
+---사용할 DB---
+private static final String driver = "oracle.jdbc.driver.OracleDriver";
+
+---사용할 db의 포트(docker환경 oracle의 ipaddress)---
+private static final String url = "jdbc:oracle:thin:@[host ip]:1521:[sid]";  
+
+---oracle db의 접속 id,pw---
+private static final String user = "user_name";
+private static final String pwd = "password"; 
+```
 
  
 
