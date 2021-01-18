@@ -349,7 +349,7 @@ try
 	ResultSet rs = stmt.executeQuery(query);  --> sql문으로 db 조회.
 	while(rs.next())
 	{  
-	 String id = rs.getString("id");           ---> 조회한 레코드의 칼럼값을 받고, MemberVO 객체에 속성 설정.
+	 String id = rs.getString("id");    ---> 조회한 레코드의 칼럼값을 받고, MemberVO 객체에 속성 설정.
 	 String pwd = rs.getString("pwd");
 	 String name = rs.getString("name");
 	 String email = rs.getString("email");
@@ -403,6 +403,19 @@ private static final String url = "jdbc:oracle:thin:@[host ip]:1521:[sid]";
 private static final String user = "user_name";
 private static final String pwd = "password"; 
 ```
+
+<br>
+
+>#### PreparedStatement   
+<br>
+
+```
+기존의 Statement 인터페이스는 sql을 컴파일하고 DBMS에 전달한다. --> 시간소모 큼
+
+수행속도를 줄이기 위해서 PreparedStatement는 컴파일된 sql문을 DBMS에 전달한다. 
+```
+
+
 
  
 
