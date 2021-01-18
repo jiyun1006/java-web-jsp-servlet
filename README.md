@@ -8,6 +8,8 @@
 기본환경 - Ubuntu20.04, Docker20.10.1
 
 build path 설정 - servlet-api.jar, ojdbc8.jar
+
+현재 docker 생성할 때, 고정된 ip를 할당하지 않았으므로, ip 주소가 계속  
 ```
 <br>
 
@@ -415,8 +417,43 @@ private static final String pwd = "password";
 수행속도를 줄이기 위해서 PreparedStatement는 컴파일된 sql문을 DBMS에 전달한다. 
 ```
 
+<br>
+<br>
 
+>### ConnectionPool   
 
+<br>
+
+**톰캣 컨테이너 실행 시,ConnectinoPool객체를 생성해서, DBMS와 연결한다.**   
+
+**docker 톰캣 디렉토리안에 context.xml 파일을 현재 사용하고 있는 DBMS로 설정한다.**   
+
+<br>
+
+```xml
+<Resource
+    name = "jdbc/oracle"
+    auth = "Container"
+    type = "javax.sql.DataSource"
+    driverClassName = "oracle.jdbc.driver.OracleDriver"
+    url = "jdbc:oracle:thin:@172.17.0.2:1521:ORCLCDB"   ---> 현재 docker oracle 컨테이너 생성할 때, 고정된 ip를 주지 않았으므로, 계속 바뀐다......
+    username = ""
+    password = ""
+    maxActive = "50"
+    maxWait="-1" />
+```   
+
+<br>
+
+*바뀐 MemberDAO*   
+
+```java
+Context ctx  = new InitialContext();
+
+Context envContext = (Context) ctx.lookup("java:/comp/env");  --> JNDI에 접근하기 위해 기본 경로를 지정.
+
+dataFactory = (DataSource) envContext.lookup("jdbc/oracle"); --> 
+```
  
 
 
