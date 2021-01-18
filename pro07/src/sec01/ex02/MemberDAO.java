@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MemberDAO {
 	private static final String driver = "oracle.jdbc.driver.OracleDriver";
-	private static final String url = "jdbc:oracle:thin:@172.17.0.3:1521:ORCLCDB";
+	private static final String url = "jdbc:oracle:thin:@172.17.0.2:1521:ORCLCDB";
 	private static final String user = "JIYUN";
 	private static final String pwd = "153263";
 	private Statement stmt;
