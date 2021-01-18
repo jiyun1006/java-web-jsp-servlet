@@ -452,7 +452,7 @@ Context ctx  = new InitialContext();
 
 Context envContext = (Context) ctx.lookup("java:/comp/env");  --> JNDI에 접근하기 위해 기본 경로를 지정.
 
-dataFactory = (DataSource) envContext.lookup("jdbc/oracle"); --> 
+dataFactory = (DataSource) envContext.lookup("jdbc/oracle"); --> context.xml에 설정한 내용으로 
 ```
  
 
