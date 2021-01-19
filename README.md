@@ -619,3 +619,33 @@ int age = (Integer)member.get(1);
 InputStream is = context.getResourceAsStream("/WEB-INF/bin/init.txt"); --> 미리 해당 경로에 작성한 파일의 값을 불러올 수 있다.
 BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
 ```
+<br><br>
+
+>### ServletConfig   
+
+<br>
+
+**각 Servlet객체에 대해 생성되고, 소멸한다.**   
+
+**대표적인 기능으로 ServletContext의 객체를 가져오는 기능을 가지고 있다.**   
+
+<br>
+ 
+*WebServlet 어노테이션을 이용한 서블릿 설정*    
+
+```
+#servlet 파일 생성할 때, 다중 url mapping이 가능하며, 특정 매개변수를 작성할 수 있다.
+
+@WebServlet(
+  urlPatterns = { 
+	"/sInit1", 
+	"/sInit2"
+ }, 
+  initParams = { 
+	@WebInitParam(name = "email", value = "admin@jweb.com"), 
+	@WebInitParam(name = "tel", value = "010-1111-2222")
+ })
+ 
+String email = getInitParameter("email");
+String tel = getInitParameter("tel");
+```
