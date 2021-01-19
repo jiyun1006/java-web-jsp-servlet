@@ -553,7 +553,6 @@ for (int i = 0; i < membersList.size(); i++) {  ---> VO 객체를 이용해 값�
 	Date joinDate = memberVO.getJoinDate();
 ```
 
-<br>
 
 ### **이러한 viewServlet 클래스가 웹 브라우저에서 화면 기능을 담당한다. 후에 jsp로 발전한다.**   
 
