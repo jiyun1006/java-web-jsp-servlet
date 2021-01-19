@@ -512,8 +512,49 @@ dataFactory = (DataSource) envContext.lookup("jdbc/oracle"); --> context.xml에 
 	dispatch.forward(request, response);
 	```
 	
+<br><br>
 
+>### 바인딩   
 
+<br>
 
+**서블릿에서 대량의 데이터를 다른 서블릿 또는 JSP에 전송하기 위해 쓰이는 기능.**   
+
+<br>
+
+*클라이언트에 재요청을 보내는 것이 아니므로 dispatch 포워딩 방식을 이용한다.*   
+
+```java
+---MemberServlet 코드 일부---
+
+MemberDAO dao = new MemberDAO();
+List memberList = dao.listMembers();  ---> MemberDAO, VO 객체를 생성한다.
+
+request.setAttribute("memberList", memberList);  --> request의 memberList 값으로 위에서 생성한 memberList 객체를 바인딩한다.
+
+RequestDispatcher dispatch = request.getRequestDispatcher("viewMember");
+dispatch.forward(request, response); ---> 바인딩한 request를 viewMember 서블릿으로 포워딩한다.
+
+```
+
+<br>
+
+```java
+---viewServlet 일부(viewMember서블릿)---
+
+List membersList = (List) request.getAttribute("memberList");   ---> 바인딩해서 넘어온 request를 가져온다.
+
+for (int i = 0; i < membersList.size(); i++) {  ---> VO 객체를 이용해 값을 지정
+	MemberVO memberVO = (MemberVO) membersList.get(i);
+	String id = memberVO.getId();
+	String pwd = memberVO.getPwd();
+	String name = memberVO.getName();
+	String email = memberVO.getEmail();
+	Date joinDate = memberVO.getJoinDate();
+```
+
+<br>
+
+### **이러한 viewServlet 클래스가 웹 브라우저에서 화면 기능을 담당한다. 후에 jsp로 발전한다.**   
 
 
