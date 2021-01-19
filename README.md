@@ -649,3 +649,34 @@ BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
 String email = getInitParameter("email");
 String tel = getInitParameter("tel");
 ```
+
+<br><br>
+
+>### load_on_startup   
+
+<br>
+
+**최초 요청에 대한 실행 시간을 줄이기 위한 기능**   
+
+- 톰캣 컨테이너가 실행되면서 미리 서블릿을 실행한다.   
+
+- 지정한 숫자가 0보다 크면 톰캣 컨테이너가 실행되면서 서블릿이 초기화된다. (지정한 숫자는 우선순위)   
+
+<br>
+
+**@WebServlet 어노테이션에 loadOnStartup 옵션을 추가해서 우선순위를 정할 수 있다.**   
+
+```
+@WebServlet(name = "loadConfig", urlPatterns = { "/loadConfig" }, loadOnStartup = 1)
+
+---임의의 servlet 일부코드---
+
+public class LoadAppConfig extends HttpServlet {
+	
+	private ServletContext context;  ---> 변수 context를 멤버 변수로 선언.
+	
+	public void init(ServletConfig config) throws ServletException {
+		context = config.getServletContext();  --> init()메서드에서 ServletContext 객체를 얻는다.
+```   
+
+#### **톰캣 실행 시, web.xml의 변수를 읽어와서 미리 ServletContext에 바인딩된다.(최초 요청 시 기다리지 않고, 바로 출력 가능)**   
