@@ -557,4 +557,66 @@ for (int i = 0; i < membersList.size(); i++) {  ---> VO 객체를 이용해 값�
 
 ### **이러한 viewServlet 클래스가 웹 브라우저에서 화면 기능을 담당한다. 후에 jsp로 발전한다.**   
 
+<br><br>
 
+>### ServletContext   
+
+<br>
+
+**서블릿과 컨테이너의 연동과 서블릿끼리의 자원을 공유하는데 사용한다.**   
+
+**컨테이너 실행 시 생성되고, 컨테이너 종료 시 소멸된다.**   
+
+<br>
+
+- 바인딩 기능   
+
+```java
+---바인딩해서 다른 서블릿으로 쏘는 코드---
+
+ServletContext context = getServletContext();  --> servletcontext 객체를 가져온다.
+
+List member = new ArrayList();
+member.add("이순신");
+member.add(30);
+
+context.setAttribute("member", member);  --> context에 데이터를 바인딩한다.
+```  
+
+<br>
+
+```java
+---바인딩된 자원을 받는 서블릿---
+
+ServletContext context = getServletContext();
+List member = (ArrayList)context.getAttribute("member");  --> 바인딩된 데이터를 가져온다.
+
+String name = (String)member.get(0);
+int age = (Integer)member.get(1);
+```
+
+<br>
+
+- 매개변수를 설정 기능 
+
+```
+---web.xml---
+<context-param>
+  <param-name>menu_member</param-name>
+  <param-value>회원등록 회원조회 회원수정</param-value>
+ </context-param>
+ 
+ 
+ ---servlet---
+ String menu_member = context.getInitParameter("menu_member");  ---> param-name에 등록된 변수를 사용할 수 있다.
+```
+
+<br>
+
+- 파일 입출력 기능   
+
+```
+---입출력---
+InputStream is = context.getResourceAsStream("/WEB-INF/bin/init.txt"); --> 미리 해당 경로에 작성한 파일의 값을 불러올 수 있다.
+BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
+```
