@@ -9,7 +9,7 @@
 
 build path 설정 - servlet-api.jar, ojdbc8.jar
 
-현재 docker 생성할 때, 고정된 ip를 할당하지 않았으므로, ip 주소가 계속  
+현재 docker 생성할 때, 고정된 ip를 할당하지 않았으므로, ip 주소가 계속 바뀜 ... --> 다음에는 콘
 ```
 <br>
 
