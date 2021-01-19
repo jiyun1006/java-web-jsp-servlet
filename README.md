@@ -455,6 +455,65 @@ Context envContext = (Context) ctx.lookup("java:/comp/env");  --> JNDI에 접근
 dataFactory = (DataSource) envContext.lookup("jdbc/oracle"); --> context.xml에 설정한 내용으로 
 ```
  
+<br><br>
+
+>### 서블릿 포워드   
+
+<br>
+
+**하나의 서블릿에서 다른 서블릿이나 jsp 등으로 연동하는 방법을 포워드라고 한다.**   
+
+
+- request에 대한 추가 작업을 다른 서블릿에게 수행하게 한다.     
+
+- request에 포함된 정보를 다른 서블릿이나 jsp와 공유할 수 있다.   
+
+- request에 정보를 포함시켜 다른 서블릿에 전송이 가능하다.    
+
+<br>
+
+- 웹 브라우저를 거쳐 다른 서블릿으로 요청하는 방법   
+
+	- Redirect 방법 - sendRedirect() 메서드 사용    
+	
+	```java
+	---name=lee 와 같이 데이터도 전송 가능---
+	
+	response.sendRedirect("second?name=lee");
+	```   
+	<br>
+	
+	- Refresh 방법- addHeader() 메서드 사용   
+	
+	```java
+	---1초 지연 시간 추가---
+	
+	response.sendRedirect("second?name=lee");
+	```   
+	<br>
+	
+	- location 방법    
+	
+	```java
+	out.print("<script type='text/javascript'>");
+	out.print("location.href='second';");
+	out.print("</script>");
+	```   
+
+- 클라이언트를 거치지 않고 바로 서블릿으로 요청하는 방법   
+
+	- dispatch 방법   
+	
+	```java
+	---get 방식으로 데이터 전달---
+	
+	RequestDispatcher dispatch = request.getRequestDispatcher("second?name=lee");
+	
+	dispatch.forward(request, response);
+	```
+	
+
+
 
 
 
