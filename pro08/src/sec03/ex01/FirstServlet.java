@@ -1,4 +1,4 @@
-package sec02.ex01;
+package sec03.ex01;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class FirstServlet
  */
-//@WebServlet("/first")
+@WebServlet("/first")
 public class FirstServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,8 @@ public class FirstServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		RequestDispatcher dispatch = request.getRequestDispatcher("second?name=lee");
+		request.setAttribute("address", "서울시 성북구");
+		RequestDispatcher dispatch = request.getRequestDispatcher("second");
 		dispatch.forward(request, response);
 	}
 

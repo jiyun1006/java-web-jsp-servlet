@@ -9,7 +9,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="/home/jiyun4251/java_web-jsp-servelt/servlet-api.jar"/>
-	<classpathentry kind="lib" path="/home/jiyun4251/다운로드/ojdbc7.jar"/>
+	<classpathentry kind="lib" path="/home/jiyun4251/jar_col/ojdbc7.jar"/>
+	<classpathentry kind="lib" path="/home/jiyun4251/jar_col/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
