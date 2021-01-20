@@ -1,4 +1,4 @@
-package sec02.ex01;
+package sec02.ex02;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class getCookieValue
  */
-//@WebServlet("/get")
+@WebServlet("/get")
 public class getCookieValue extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
