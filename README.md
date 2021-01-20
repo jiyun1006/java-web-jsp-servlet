@@ -679,4 +679,55 @@ public class LoadAppConfig extends HttpServlet {
 		context = config.getServletContext();  --> init()메서드에서 ServletContext 객체를 얻는다.
 ```   
 
-#### **톰캣 실행 시, web.xml의 변수를 읽어와서 미리 ServletContext에 바인딩된다.(최초 요청 시 기다리지 않고, 바로 출력 가능)**   
+#### **톰캣 실행 시, web.xml의 변수를 읽어와서 미리 ServletContext에 바인딩된다.(최초 요청 시 기다리지 않고, 바로 출력 가능)**    
+
+
+<br><br>
+
+>### Cookie   
+
+<br>
+
+**클라이언트 pc에 저장해 놓고 필요할 때 여러 웹 페이지들이 굥유해서 사용할 수 있도록 매개역할을 하는 방법**   
+
+- 정보가 클라이언트 pc에 저장   
+- 저장 정보 용량에 제한이 있다.   
+- 보안이 취약하다.   
+- 도메인당 쿠키가 만들어진다.   
+
+<br>
+
+>#### persisten cookie   
+
+<br>
+
+**클라이언트에 파일로 정보를 저장하는 기능 (만료 시간을 조절 가능)**   
+
+```java
+---cookie 설정하는 servlet 일부---
+
+#Cookie 객체 생성후 'cookieTest'라는 이름으로 한글정보를 인코딩해서 저장.
+Cookie c = new Cookie("cookieTest", URLEncoder.encode("JSP프로그래밍입니다.","utf-8"));
+
+c.setMaxAge(24*60*60); --> 유효기간 설정
+
+response.addCookie(c); --> 생성된 쿠키를 브라우저로 전송.
+```   
+
+<br>
+
+```java
+---cookie를 사용하는 servlet 일부---
+
+Cookie[] allValues=request.getCookies(); --> getCookies()메서드로 브라우저에게 쿠키 정보를 요청.
+
+# 쿠키 배열을 쿠키 이름인 cookieTest검색해서 쿠키 값을 가져온다.
+for(int i=0; i<allValues.length; i++) {
+    if(allValues[i].getName().equals("cookieTest")) {
+        out.println("<h2>Cookie 값 가져오기 : "+URLDecoder.decode(allValues[i].getValue(), "utf-8"));
+     }
+}
+```   
+
+
+
