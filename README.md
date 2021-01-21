@@ -729,5 +729,63 @@ for(int i=0; i<allValues.length; i++) {
 }
 ```   
 
+<br><br>
+
+>### Session   
+
+<br>
+
+**cookie와 비슷하게 웹 페이지들을 매개해 주는 방법이다.**   
+
+**세션은 서버의 메모리에 생성되기 때문에, 보안이 요구되는 정보에 주로 이용한다.**    
+
+<br>
+
+
+*세션 실행 순서*
+```
+1. 브라우저로 사이트에 접속한다.
+
+2. 서버는 접속한 브라우저에 대한 세션 객체를 생성한다.
+
+3. 서버는 생성된 세션 id를 클라이언트 브라우저에 응답한다.
+
+4. 브라우저는 서버로부터 받은 세션 id를 브라우저가 사용하는 메모리의 세션 쿠키에 저장한다.
+
+5. 브라우저가 재접속하면 브라우저는 세션 쿠키에 저장된 세션 id를 서버에 전달한다.
+
+6. 서버는 전손된 세션 id를 이용해 해당 세션에 접근하여 작업을 수행한다.
+```   
+
+<br>
+
+*세션 정보 바인딩을 통한 로그인 정보 이용*   
+
+```java
+HttpSession session = request.getSession();  ---> httpsession으로 session 객체를 생성한다.(새로 받던지, 있었다면 원래 있던 세션을 받는다.)
+String user_id = request.getParameter("user_id");
+String user_pw = request.getParameter("user_pw");
+if (session.isNew()) {
+	if(user_id != null) {  --> 새로 생성된 세션인데 로그인 정보가 있을 때.
+		session.setAttribute("user_id", user_id); --> session에 id를 묶어서 바인딩한다.
+		out.println("<a href='login'>로그인 상태 확인 </a>");
+	}else {
+		out.print("<a href='login2.html'> 다시 로그인 하세요!!</a>");
+		session.invalidate(); --> 로그인 정보가 없으므로 세션을 삭제한다.
+	}
+}else {
+	user_id = (String) session.getAttribute("user_id");   ---> 재요청 시 세션에서 id를 가져와서 로그인 여부를 
+	if (user_id != null && user_id.length() != 0) {
+		out.print("안녕하세요 " + user_id + "님!!!");
+	}else {
+		out.print("<a href='login2.html'>다시 로그인 하세요 !!</a>");
+		session.invalidate();
+	}
+}
+```
+
+
+
+
 
 
