@@ -784,8 +784,75 @@ if (session.isNew()) {
 }
 ```
 
+<br>
+<br>
 
+>#### session을 이용한 로그인 예제    
 
+<br>
+
+**데이터베이스에 미리 들어있는 id, pwd를 이용해 로그인 상태를 세션으로 확인하는 예제이다.**   
+
+<br>
+
+```java
+---LoginServlet 코드 일부---
+
+String user_id = request.getParameter("user_id");
+String user_pwd = request.getParameter("user_pwd");  --> 로그인창에서 전송된 id, pwd 
+
+MemberVO memberVO = new MemberVO();
+memberVO.setId(user_id);
+memberVO.setPwd(user_pwd);  --> MemberVO 객체에 id, pwd 저장.
+
+MemberDAO dao = new MemberDAO();
+boolean result = dao.isExisted(memberVO);  --> MemberDAO의 isExisted로 존재하는지 확인.
+
+.....
+
+HttpSession session = request.getSession();
+session.setAttribute("isLogon", true);
+session.setAttribute("login.id", user_id);
+session.setAttribute("login.pwd", user_pwd);   ---> 로그인을 성공하면,Logon, id,pwd를 세션에 바인딩한다.
+```   
+<br>
+
+```java
+---MemberDAO의 isExisted 메서드---
+
+public boolean isExisted(MemberVO memberVO) {
+	boolean result = false;  
+	String id = memberVO.getId();
+	String pwd = memberVO.getPwd();
+	try {
+		con = dataFactory.getConnection();
+		String query = "select decode(count(*),1,'true','false') as result from t_member";
+		query += " where id=? and pwd=?";   
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, id);
+		pstmt.setString(2, pwd);   
+		ResultSet rs = pstmt.executeQuery();   --> MemberVO로 얻어온 id, pwd로 DB조사.
+		rs.next();
+		result = Boolean.parseBoolean(rs.getString("result"));  --> String형인 result를 Boolean형으로 변환 (존재하면 True)
+		System.out.println("result=" + result);
+	} .....
+```
+
+<br>
+
+```java
+---ShowMember 코드 일부---
+
+isLogon = (Boolean)session.getAttribute("isLogon");
+if(isLogon==true) {  --> 로그인 정보가 존재하면,
+
+	id = (String)session.getAttribute("login.id");
+	pwd = (String)session.getAttribute("login.pwd");   --> 세션에 바인딩되었던 id, pwd 정보
+	out.print("<html><body>");
+	out.print("아이디 : " + id +"<br>");
+	out.print("비밀번호 : " + pwd + "<br>");
+	out.print("</body></html>");
+```
 
 
 
