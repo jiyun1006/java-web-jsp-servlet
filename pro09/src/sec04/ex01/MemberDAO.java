@@ -30,9 +30,7 @@ public class MemberDAO {
 	public boolean isExisted(MemberVO memberVO) {
 		boolean result = false;
 		String id = memberVO.getId();
-		System.out.println(id);
 		String pwd = memberVO.getPwd();
-		System.out.println(pwd);
 		try {
 			con = dataFactory.getConnection();
 			String query = "select decode(count(*),1,'true','false') as result from t_member";
