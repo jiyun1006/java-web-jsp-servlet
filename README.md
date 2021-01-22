@@ -854,5 +854,30 @@ if(isLogon==true) {  --> 로그인 정보가 존재하면,
 	out.print("</body></html>");
 ```
 
+>### Filter   
+
+<br>
+
+**클라이언트와 서버 사이에 request 와 response객체를 필터가 공통된 작업을 한다.**   
+
+**WebFilter 어노테이션으로 범위를 정할 수 있다.**   
+
+<br>
+
+```java
+---filter servlet 일부---
+
+@WebFilter("/*")  --> 모든 servlet을 범위로 
+
+public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
+throws IOException, ServletException {
+
+
+  request.setCharacterEncoding("utf-8");   --> request를 인코딩하는 기능을 filter에 설정.
+  
+  
+  chain.doFilter(request, response);   ---> 
+}
+```
 
 
