@@ -881,4 +881,6 @@ throws IOException, ServletException {
 }
 ```
 
+*현재 리스터 기능을 사용하려고 하면 해당 프로젝트가 아예 멈춤... (추후에 수정)*
+
 
