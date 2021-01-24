@@ -998,11 +998,11 @@ jsp 파일이 서블릿으로 변환 된, 파일을 보면, <% %>
 <br>
 <br>
 
->#### session, application 내장 객체     
+>#### session, application, request 내장 객체     
 
 <br>
 
-**서블릿에서 생성한 session 객체를 jsp에서는 자동으로 session객체를 생성하므로 getSession메서드 없이 사용 가능하다.**   
+**서블릿에서 생성한 session 객체를 jsp에서는 자동으로 session객체를 생성하므로 getSession메서드 없이 사용 가능하다.(application도 동일)**   
 
 <br>
 
@@ -1026,7 +1026,25 @@ application.setAttribute("address", "서울시 성동구");   ---> session 과 a
 ```   
 <br>
 
-#### *session의 스코프는 같은 브라우저이고, application의 스코프는 애플리케이션이다.*
+#### *session의 스코프는 같은 브라우저이고, application의 스코프는 애플리케이션이다.*   
+
+<br>
+
+**내장 객체중 가장 많이 쓰이는 request도 사용법은 동일하다.**   
+
+*jsp 코드*
+
+```
+<%
+request.setAttribute("name", "이순신");
+request.setAttribute("address", "서울시 성동구");   ---> request객체 생성없이 바로 바인딩한다.
+%>
+
+<%
+RequestDispatcher dispatch = request.getRequestDispatcher("request2.jsp");
+dispatch.forward(request, response);    ---> dispatch 객체를 이용해서 다른 jsp에 포워딩
+%>
+```
 
 
 
