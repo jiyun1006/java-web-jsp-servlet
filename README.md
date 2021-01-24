@@ -979,5 +979,44 @@ throws IOException, ServletException {
 
 jsp 파일이 서블릿으로 변환 된, 파일을 보면, <% %>
 ```
+<br><br>
 
+>### 내장객체 기능   
+
+<br>
+
+**JSP가 서블릿으로 변환될 때 컨테이너가 자동으로 생성시키는 서블릿 멤버 변수.**   
+
+- request
+
+- response
+
+- session
+
+- application  등등....   
+
+<br>
+<br>
+
+>#### session 내장객체   
+
+<br>
+
+**서블릿에서 생성한 session 객체를 jsp에서는 자동으로 session객체를 생성하므로 getSession메서드 없이 사용 가능하다.**   
+
+<br>
+
+*servlet 코드*
+```java
+HttpSession session = request.getSession();  --> session객체를 생성하고,
+
+session.setAttribute("name", "이순신");  --> session객체에 name을 바인딩한다.
+```   
+
+<br>
+
+*jsp 코드*
+```
+<% String name = (String) session.getAttribute("name"); %> ---> 스크립문으로 session
+```
 
