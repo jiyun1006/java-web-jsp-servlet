@@ -1027,7 +1027,7 @@ application.setAttribute("address", "서울시 성동구");   ---> session 과 a
 
 #### *session의 스코프는 같은 브라우저이고, application의 스코프는 애플리케이션이다.*   
 
-<br>
+<br><br>
 
 - request 내장 객체
 
