@@ -998,7 +998,7 @@ jsp 파일이 서블릿으로 변환 된, 파일을 보면, <% %>
 <br>
 <br>
 
->#### session 내장객체   
+>#### session, application 내장 객체     
 
 <br>
 
@@ -1017,6 +1017,15 @@ session.setAttribute("name", "이순신");  --> session객체에 name을 바인�
 
 *jsp 코드*
 ```
-<% String name = (String) session.getAttribute("name"); %> ---> 스크립문으로 session
-```
+<%
+String name = (String) session.getAttribute("name");  ---> 스크립문으로 session
+
+session.setAttribute("name", "이순신");
+application.setAttribute("address", "서울시 성동구");   ---> session 과 application 둘 다 객체 생성없이 바인딩 가능하다.   
+%>
+```   
+
+#### *session의 스코프는 같은 브라우저이고, application의 스코프는 애플리케이*
+
+
 
