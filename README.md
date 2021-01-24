@@ -987,13 +987,8 @@ jsp 파일이 서블릿으로 변환 된, 파일을 보면, <% %>
 
 **JSP가 서블릿으로 변환될 때 컨테이너가 자동으로 생성시키는 서블릿 멤버 변수.**   
 
-- request
+request, response, session, application 등등 ....
 
-- response
-
-- session
-
-- application  등등....   
 
 <br>
 <br>
