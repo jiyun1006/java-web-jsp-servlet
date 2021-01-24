@@ -939,4 +939,31 @@ throws IOException, ServletException {
 <%@ include file="include_image.jsp"%>   ---> 만들어진 jsp파일을 html내로 불러온다. (재
 ```
 
+<br><br>
+
+>### 스크립트 요소, 표현언어   
+
+<br>
+
+**스크립틀릿으로 jsp로 전송된 값을 불러온다.**   
+
+```
+<%!String name = "이순신";
+
+	public String getName() {   ---> jsp로 전송된 값을 스크립틀릿안의 메서드를 이용해서 받아온다.
+		return name;
+	}%>
+<%
+```   
+<br>
+
+**표현식을 통해 jsp에서 값을 출력하는 기능을 사용한다.**   
+
+```
+<h1>안녕하세요 <%=name%>님 </h1>  ---> 스크립틀릿에 선언한 name변수 사용.
+
+<h1>나이+10은<%=Integer.parseInt(age) + 10%>살 입니다.</h1>   ---> 자바 메서드를 통해 표현식 사용.
+```
+
+
 
