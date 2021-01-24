@@ -1083,7 +1083,7 @@ dispatch.forward(request, response);    ---> dispatch 객체를 이용해서 다
 <welcome-file-list>
 	<welcome-file>/test2/main.jsp</welcome-file>   ---> 1순위
 	<welcome-file>/test2/add.jsp</welcome-file>    ---> 2순위
-	<welcome-file>/test2/add.html</welcome-file>   ---> 3
+	<welcome-file>/test2/add.html</welcome-file>   ---> 3순위
 </welcome-file-list>
 ```
 
