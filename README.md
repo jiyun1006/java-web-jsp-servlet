@@ -1044,5 +1044,31 @@ dispatch.forward(request, response);    ---> dispatch 객체를 이용해서 다
 %>
 ```
 
+<br><br>
+
+>### 예외 처리   
+
+<br>
+
+**jsp 페이지에 대해 발생하는 오류에 따라서 화면에 표시되는 각각의 예외 처리 jsp페이지를 적용할 수 있다. (web.xml에 설정)**   
+
+<br>
+
+*web.xml 내용*
+
+```
+<error-page>
+   <error-code>404</error-code>
+   <location>/err/error_404.jsp</location>     ---> 404에러가 발생했을 때, 보여줄 jsp 페이지
+</error-page>
+
+<error-page>
+   <error-code>500</error-code>
+   <location>/err/error_500.jsp</location>   ---> 500에러가 발생했을 때, 보여줄 jsp 페이지
+</error-page>
+```
+
+*404에러 : 아예 없는 페이지,  500에러 : 실행 중 예외 발생*
+
 
 
