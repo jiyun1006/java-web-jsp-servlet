@@ -9,7 +9,11 @@
 		<error-code>500</error-code>
 		<location>/err/error_500.jsp</location>
 	</error-page>
-
+	<welcome-file-list>
+		<welcome-file>/test2/main.jsp</welcome-file>
+		<welcome-file>/test2/add.jsp</welcome-file>
+		<welcome-file>/test2/add.html</welcome-file>
+	</welcome-file-list>
 	<display-name>pro12</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
