@@ -965,5 +965,19 @@ throws IOException, ServletException {
 <h1>나이+10은<%=Integer.parseInt(age) + 10%>살 입니다.</h1>   ---> 자바 메서드를 통해 표현식 사용.
 ```
 
+<br>
+
+### **<%! %> 와 <% %>의 차이점**   
+```
+둘 다 jsp에서 자바코드를 쓸 때 사용한다.
+
+하지만 느낌표가 있으면 함수까지 선언이 가능하다.
+
+<%! %> 는 member field영역이고,
+
+<% %> 는 service method영역이다.
+
+jsp 파일이 서블릿으로 변환 된, 파일을 보면, <% %>
+```
 
 
