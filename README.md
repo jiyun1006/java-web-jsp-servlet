@@ -1070,5 +1070,22 @@ dispatch.forward(request, response);    ---> dispatch 객체를 이용해서 다
 
 *404에러 : 아예 없는 페이지,  500에러 : 실행 중 예외 발생*
 
+<br><br>
+
+>### welcome 파일   
+
+<br>
+
+**웹 어플리케이션 첫 화면에 해당하는 홈페이지를 web.xml에서 설정할 수 있다.**   
+
+*web.xml 내용*   
+```
+<welcome-file-list>
+	<welcome-file>/test2/main.jsp</welcome-file>   ---> 1순위
+	<welcome-file>/test2/add.jsp</welcome-file>    ---> 2순위
+	<welcome-file>/test2/add.html</welcome-file>   ---> 3
+</welcome-file-list>
+```
+
 
 
