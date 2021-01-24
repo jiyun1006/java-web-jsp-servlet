@@ -1087,5 +1087,67 @@ dispatch.forward(request, response);    ---> dispatch 객체를 이용해서 다
 </welcome-file-list>
 ```
 
+<br>
+<br>
+
+>### 스크립트 요소 - DB   
+
+<br>
+
+**DB와 연결한 정보를 스크립트 요소를 이용해 화면에 표시한다.**   
+
+**search.jsp에서 검색한 이름이 db에 있으면 해당 이름만 표시하고, 없으면 표시를 안한다.(빈칸이면 db전체 멤버를 표시)**   
+
+<br>
+
+*search.jsp 코드*   
+
+```java
+<form method="post" action="member.jsp">    ---> 검색한 이름은 member.jsp로 전달한다.
+이름 : <input type="text" name="name"><br>
+<input type="submit" value="조회하기">
+</form>
+```
+<br>
+
+*member.jsp 코드*   
+
+```java
+<%
+request.setCharacterEncoding("utf-8");
+String _name = request.getParameter("name");   ---> search.jsp에서의 input태그의 name을 받아온다.
+
+MemberVO memberVO = new MemberVO();
+memberVO.setName(_name);  ---> memberVO 객체에 name값 저장.
+
+MemberDAO dao = new MemberDAO();   
+List membersList = dao.listMembers(memberVO);  ---> db와 연결해서 값을 꺼내올 mebersList 객체 생성.
+%>
+``` 
+
+<br>
+
+*MemberDAO의 listMembers 메서드*   
+
+```java
+public List<MemberVO> listMembers(MemberVO memberVO) {
+List<MemberVO> list = new ArrayList<MemberVO>();
+String _name = memberVO.getName();  ---> memberVO에 저장되어 있던 name 값을 가져온다.
+
+try {
+  con = dataFactory.getConnection();
+  String query = "select * from t_member";
+  if ((_name != null && _name.length() != 0)) {   ---> 입력된 name이 있으면,
+	query += " where name=?";
+	pstmt = con.prepareStatement(query);
+	pstmt.setString(1, _name);
+
+  } else {   ---> 입력된 name이 없으면,
+	pstmt = con.prepareStatement(query);
+}
+
+.....생략
+```   
+
 
 
