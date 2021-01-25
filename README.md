@@ -1149,5 +1149,42 @@ try {
 .....생략
 ```   
 
+<br><br>
+
+>### JSP 액션태그   
+
+<br>
+
+**html안에 java코드를 줄일수 있게 하는 jsp 액션태그**   
+
+<br>
+
+*액션태그 종류*   
+- include   
+- forward   
+- usebean   
+- setproperty     
+- getproperty   
+
+<br>
+
+```
+---include 태그 코드---
+
+<jsp:include page="dog_image.jsp" flush="true">  ---> 미리 image파일 작성한 jsp 파일을 명시
+   <jsp:param name="name" value="듀크"/>
+   <jsp:param name="imgName" value="doc.jpeg"/>   ---> dog_image.jsp에 전해줄 requset
+</jsp:include>
+```   
+
+
+```
+---forward 태그 코드---
+
+<jsp:forward page="login.jsp" />
+```
+
+
+
 
 
