@@ -1184,6 +1184,33 @@ try {
 <jsp:forward page="login.jsp" />
 ```
 
+<br>
+
+```
+---setProperty태그 코드---
+
+<%-- property와 value 둘 다 적음 --%>
+<%--jsp:setProperty name="m" property="id" value =request.getParameter("id")d") %>'--%>
+
+<%-- property와 param을 사용 (매개변수와 이름과 속성이 같아야 함.)--%>
+<%-- jsp:setProperty name="m" property="id" param="id" --%>
+
+<%-- property만 작성 (매개 변수 이름과 property와 같으면 자동으로 연결)--%>
+<%--jsp:setProperty name="m" property="id"--%>
+
+<%-- 전송된 매개변수 이름과 빈 속성을 비교한 후 동일한 빈에 값을 자동으로 연결 --%>
+<jsp:setProperty name="m" property="*" />   		---> 이 방법이 가장 짧고 편하다.
+
+
+
+---getProperty태그 코드---
+
+<td>
+   <jsp:getProperty name="m" property="id"/>   ---> userbean에 저장된 속성값을 이용해 값을 불러온다.
+</td>
+
+```
+
 
 
 
