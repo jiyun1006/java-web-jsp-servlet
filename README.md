@@ -1211,6 +1211,13 @@ try {
 
 ```
 
+<br><br>
+
+### *JSP 표현언어에서 동일한 속성 이름에 접근할 경우 객체의 속성 우선순위*
+```
+page --> request --> session --> application
+```
+
 
 
 
