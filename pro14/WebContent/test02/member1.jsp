@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 request.setCharacterEncoding("utf-8");
-String id = (String) request.getAttribute("id");
-String pwd = (String) request.getAttribute("pwd");
-String name = (String) request.getAttribute("name");
-String email = (String) request.getAttribute("email");
 %>
+<c:set var="id" value="hong" scope="page" />
+<c:set var="pwd" value="1234" scope="page" />
+<c:set var="name" value="홍길동" scope="page" />
+<c:set var=" age" value="22" scope="page" />
+<c:set var="height" value="177" scope="page" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,14 +27,17 @@ String email = (String) request.getAttribute("email");
 				<b>이름</b>
 			</td>
 			<td width="20%">
-				<b>이메일</b>
+				<b>나이</b>
+			</td>
+			<td width="20%">
+				<b>키</b>
 			</td>
 		</tr>
 		<tr align="center">
-			<td>${param.id}</td>
+			<td>${id}</td>
 			<td>${pwd }</td>
-			<td>${name }</td>
-			<td>${email }</td>
+			<td>${age }</td>
+			<td>${height }</td>
 		</tr>
 	</table>
 </body>
