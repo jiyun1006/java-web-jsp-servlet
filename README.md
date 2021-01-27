@@ -106,3 +106,15 @@ create user [유저id] identified by [password];
 # 생성한 유저에 권한 설정
 grant connect, resource, dba to [유저 id];
 ```
+
+<br><br>
+
+
+## **tomcat <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/tomcat.md" />**       
+
+## **servlet <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/servlet.md" />**       
+
+## **jsp <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/jsp.md" />**
+
+
+
