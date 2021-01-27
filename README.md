@@ -110,11 +110,15 @@ grant connect, resource, dba to [유저 id];
 <br><br>
 
 
-## **tomcat <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/tomcat.md" />**       
+## <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/tomcat.md" />**tomcat**         
 
-## **servlet <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/servlet.md" />**       
+<br>
 
-## **jsp <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/jsp.md" />**
+## <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/servlet.md" />**servlet**       
+
+<br>
+
+## <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/jsp.md" />**jsp**   
 
 
 
