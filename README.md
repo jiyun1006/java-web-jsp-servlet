@@ -109,6 +109,9 @@ grant connect, resource, dba to [유저 id];
 
 <br><br>
 
+>## 추가 설정 및 공부 내용   
+
+<br>
 
 ## <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/tomcat.md" />**tomcat**         
 
