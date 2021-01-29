@@ -328,3 +328,60 @@ try {
 ```
 page --> request --> session --> application
 ```
+
+<br>
+<br>
+
+>### 파일 업로드   
+
+<br>
+
+**파일 업로드 관련 api를 이용해서 파일을 업로드한다.**   
+
+*파일업로드 servlet*
+```java
+File currentDirPath = new File("/var/webapps/upload/");   ---> 업로드할 파일 경로 설정.
+DiskFileItemFactory factory = new DiskFileItemFactory();
+factory.setRepository(currentDirPath);    ---> 설정한 파일경로 저장.
+factory.setSizeThreshold(1024*1024);   ---> 최대 업로드 가능한 파일 크기 설정.
+
+ServletFileUpload upload = new ServletFileUpload(factory);
+try {
+	List items = upload.parseRequest(request);   ---> request 객체에서 매개변수를 List로 가져옴.
+	
+	for(int i = 0; i < items.size(); i++) {
+		FileItem fileItem = (FileItem) items.get(i);
+		
+		<# form 필드면 값 출력<
+		if(fileItem.isFormField()) {
+			System.out.println(fileItem.getFieldName()+ "=" + fileItem.getString(encoding));
+		
+		<# 파일 업로드 기능 수행.<
+		}else {
+			System.out.println("매개변수이름:" +fileItem.getFieldName());
+			System.out.println("파일이름:"+fileItem.getName());
+			System.out.println("파일크기:"+fileItem.getSize() + "bytes");
+			
+			<# 업로드하는 파일 이름을 가져오는 부분.>
+			if(fileItem.getSize()>0) {
+				int idx = fileItem.getName().lastIndexOf("\\");
+				if(idx==-1) {
+					idx = fileItem.getName().lastIndexOf("/");
+				}
+				String fileName = fileItem.getName().substring(idx+1);
+				
+				<# 업로드한 파일이름 저장소에 다운로드>
+				File uploadFile = new File(currentDirPath+"/"+fileName);   
+				fileItem.write(uploadFile);
+			}
+```
+<br>
+
+### *tomcat 파일업로드 경로 설정*
+```
+[1] File currentDirPath = new File("/var/webapps/upload/")  ---> docker tomcat 컨테이너 내부의 디렉토리를 설정.
+
+[2] tomcat에 server.xml 파일 수정.
+---> <Context docBase="톰캣내부의 디렉토리" path="jsp 프로젝트 디렉토리" />
+
+```
