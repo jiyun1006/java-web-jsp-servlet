@@ -385,3 +385,40 @@ try {
 ---> <Context docBase="톰캣내부의 디렉토리" path="jsp 프로젝트 디렉토리" />
 
 ```
+
+<br><br>
+
+>### 파일 다운로드   
+
+<br>
+
+*파일 다운로드 servlet*
+```java
+String file_repo = "/var/webapps/downloads/";    ---> 파일을 불러올 위치
+String fileName = (String)request.getParameter("fileName");   ---> 매개변수로 전송된 파일 이름 읽어오기.
+
+System.out.println("fileName=" + fileName);
+OutputStream out = response.getOutputStream();   ---> OutputStream 객체 생성.
+String downFile=file_repo+"/"+fileName;
+File f = new File(downFile);
+
+<# 파일 다운로드할 수 있게하는 코드>
+response.setHeader("Cache-Control", "no-cache");
+response.addHeader("Content-disposition", "attachment; fileName="+fileName);
+
+FileInputStream in = new FileInputStream(f);
+byte[] buffer = new byte[1024*8];   ---> 버퍼 기능을 이용해서 파일에서 버퍼로 데이터를 읽어와 한꺼번에 출력.
+while(true) {
+	int count = in.read(buffer);
+	if(count==-1)
+		break;
+	out.write(buffer,0,count);
+}
+```   
+
+<br>
+
+### *tomcat 파일다운로드 경로 설정*
+```
+[1] String file_repo = "/var/webapps/downloads/";   ---> docker tomcat 컨테이너 내부의 디렉토리를 설정.
+```
