@@ -422,3 +422,42 @@ while(true) {
 ```
 [1] String file_repo = "/var/webapps/downloads/";   ---> docker tomcat 컨테이너 내부의 디렉토리를 설정.
 ```
+
+
+<br><br>
+
+>### JSON(Ajax)   
+
+<br>
+
+**xml형식으로 연동할 경우 모바일 환경에서 퍼포먼스가 안좋음. 그래서 JSONdmfh eocp**   
+
+**name/value 쌍으로 이루어진 데이터 객체를 전달하기 위한 개방형 표준 데이터 형식**   
+
+<br>
+
+
+*JSON활용 예시 코드*   
+
+```javascript
+<script>
+$(function() {
+	 $("#checkJson").click(function() {	      
+	    var jsonStr = '{"members":[{"name":"박지성","age":"25","gender":"남자","nickname":"날센돌이"}'
+	    	           +', {"name":"손흥민","age":"30","gender":"남자","nickname":"탱크"}] }';
+			   
+	    var jsonInfo = JSON.parse(jsonStr);  ---> JSON기능인 parse()메서드를 이용해 JSON자료형 설정.
+	    
+	    var output ="회원 정보<br>";
+	    output += "=======<br>";
+	    for(var i in jsonInfo.members){
+              output += "이름: " + jsonInfo.members[i].name+"<br>";
+	       output += "나이: " + jsonInfo.members[i].age+"<br>";
+	       output += "성별: " + jsonInfo.members[i].gender+"<br>";
+	       output += "별명: " +jsonInfo.members[i].nickname+"<br><br><br>";
+	    }
+	    $("#output").html(output);
+	 });
+    });
+</script>
+```
