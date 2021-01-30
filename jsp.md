@@ -439,8 +439,8 @@ while(true) {
 
 *JSON활용 예시 코드*   
 
-```
-<script>javascript
+```javascript
+<script>
 $(function() {
 	 $("#checkJson").click(function() {	      
 	    var jsonStr = '{"members":[{"name":"박지성","age":"25","gender":"남자","nickname":"날센돌이"}'
