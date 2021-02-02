@@ -127,3 +127,12 @@ grant connect, resource, dba to [유저 id];
 
 ## <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/MVC2.md" />**모델 2(MVC)**
 
+
+<br>
+
+>## 실습 예제   
+
+<br>
+
+## <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/post.md"/>**게시판 
+
