@@ -54,7 +54,7 @@ public class MemberDAO {
 		return membersList;
 
 	}
-	
+
 	public void addMember(MemberVO m) {
 		try {
 			conn = dataFactory.getConnection();
@@ -65,17 +65,16 @@ public class MemberDAO {
 			String query = "INSERT INTO t_member(id, pwd, name, email)" + "VALUES(?, ?, ?, ?)";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1,  id);
+			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
 			pstmt.setString(3, name);
 			pstmt.setString(4, email);
 			pstmt.executeUpdate();
 			pstmt.close();
 			conn.close();
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
 
 }
