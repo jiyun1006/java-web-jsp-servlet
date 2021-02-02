@@ -134,5 +134,5 @@ grant connect, resource, dba to [유저 id];
 
 <br>
 
-## <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/post.md"/>**게시판 
+## <a href = "https://github.com/jiyun1006/java_web-jsp-servlet/blob/main/post.md"/>**게시판 기능**   
 
