@@ -68,7 +68,7 @@ public class BoardController extends HttpServlet {
 				articlesList = boardService.listArticles();
 				request.setAttribute("articlesList", articlesList);
 				nextPage = "/board01/listArticles.jsp";
-				
+
 			} else if (action.equals("/listArticles.do")) {
 				articlesList = boardService.listArticles();
 				request.setAttribute("articlesList", articlesList);
@@ -76,11 +76,12 @@ public class BoardController extends HttpServlet {
 
 			} else if (action.equals("/articleForm.do")) {
 				nextPage = "/board01/articleForm.jsp";
-				
-			} else if (action.equals("/addArticle.do")) {
+
+			} else if (action.equals("/addArticles.do")) {
 				int articleNO = 0;
-				Map<String, String> articleMap = upload(request, response);
 				System.out.println("여깅ㅁ내ㅔㅓ엠내");
+				Map<String, String> articleMap = upload(request, response);
+				
 				String title = articleMap.get("title");
 				String content = articleMap.get("content");
 				String imageFileName = articleMap.get("imageFileName");
@@ -90,7 +91,7 @@ public class BoardController extends HttpServlet {
 				articleVO.setContent(content);
 				articleVO.setImageFileName(imageFileName);
 				articleNO = boardService.addArticle(articleVO);
-				
+
 				if (imageFileName != null && imageFileName.length() != 0) {
 					File srcFile = new File(ARTICLE_IMAGE_REPO + "/" + "temp" + "/" + imageFileName);
 					File destDir = new File(ARTICLE_IMAGE_REPO + "/" + articleNO);
@@ -142,8 +143,8 @@ public class BoardController extends HttpServlet {
 
 						String fileName = fileItem.getName().substring(idx + 1);
 						System.out.println("파일명:" + fileName);
-						articleMap.put(fileItem.getFieldName(), fileName);  //익스플로러에서 업로드 파일의 경로 제거 후 map에 파일명 저장
-						File uploadFile = new File(currentDirPath + "\\temp\\" + fileName);
+						articleMap.put(fileItem.getFieldName(), fileName); // 익스플로러에서 업로드 파일의 경로 제거 후 map에 파일명 저장
+						File uploadFile = new File(currentDirPath + "/temp/" + fileName);
 						fileItem.write(uploadFile);
 					}
 				}

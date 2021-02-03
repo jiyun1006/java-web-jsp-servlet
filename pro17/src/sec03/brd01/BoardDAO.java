@@ -12,36 +12,33 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class BoardDAO {
-	
+
 	private DataSource dataFactory;
 	Connection conn;
 	PreparedStatement pstmt;
-	
-	
+
 	public BoardDAO() {
 		try {
 			Context ctx = new InitialContext();
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
 			dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public List<ArticleVO> selectAllArticles()
-	{
+
+	public List<ArticleVO> selectAllArticles() {
 		List<ArticleVO> articlesList = new ArrayList();
 		try {
-			conn = dataFactory.getConnection();		
-			String query = "select level, articleNO, parentNO, title, content, id, writeDate"
-					+ " from t_board" + " start with parentNO=0"+ " connect by prior articleNO=parentNO"
+			conn = dataFactory.getConnection();
+			String query = "select level, articleNO, parentNO, title, content, id, writeDate" + " from t_board"
+					+ " start with parentNO=0" + " connect by prior articleNO=parentNO"
 					+ " order siblings by articleNO desc";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
-			while (rs.next())
-			{
+			while (rs.next()) {
 				int level = rs.getInt("level");
 				int articleNO = rs.getInt("articleNO");
 				int parentNO = rs.getInt("parentNO");
@@ -62,13 +59,13 @@ public class BoardDAO {
 			rs.close();
 			pstmt.close();
 			conn.close();
-		
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return articlesList;
 	}
-	
+
 	private int getNewArticleNO() {
 		try {
 			conn = dataFactory.getConnection();
@@ -76,17 +73,17 @@ public class BoardDAO {
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery(query);
-			if(rs.next())
-				return (rs.getInt(1)+1);
+			if (rs.next())
+				return (rs.getInt(1) + 1);
 			rs.close();
 			pstmt.close();
 			conn.close();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
+
 	public int insertNewArticle(ArticleVO article) {
 
 		int articleNO = getNewArticleNO();
@@ -103,8 +100,8 @@ public class BoardDAO {
 			System.out.println(query);
 			System.out.println(imageFileName);
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1,  articleNO);
-			pstmt.setInt(2,  parentNO);
+			pstmt.setInt(1, articleNO);
+			pstmt.setInt(2, parentNO);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
 			pstmt.setString(5, imageFileName);
@@ -112,11 +109,10 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 			pstmt.close();
 			conn.close();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return articleNO;
 	}
-	
-	
+
 }

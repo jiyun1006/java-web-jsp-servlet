@@ -4,7 +4,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 %>
-<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,6 @@ request.setCharacterEncoding("utf-8");
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-
 	function backToList(obj) {
 		obj.action = "${contextPath}/board/listArticles.do";
 		obj.submit();
@@ -30,7 +29,7 @@ request.setCharacterEncoding("utf-8");
 </head>
 <body>
 	<h1 style="text-align: center">새글 쓰기</h1>
-	<form name="articleForm" method="post" action="${contextPath}/board/addArticle.do" enctype="multipart/form-data">
+	<form name="articleForm" method="post" action="${contextPath}/board/addArticles.do" enctype="multipart/form-data">
 		<table border=0 align="center">
 			<tr>
 				<td align="right">글제목:</td>
