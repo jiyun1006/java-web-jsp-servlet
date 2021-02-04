@@ -79,7 +79,6 @@ public class BoardController extends HttpServlet {
 
 			} else if (action.equals("/addArticles.do")) {
 				int articleNO = 0;
-				System.out.println("여깅ㅁ내ㅔㅓ엠내");
 				Map<String, String> articleMap = upload(request, response);
 				
 				String title = articleMap.get("title");
@@ -104,6 +103,12 @@ public class BoardController extends HttpServlet {
 
 				return;
 
+			}else if(action.equals("/viewArticle.do")) {
+				String articleNO = request.getParameter("articleNO");
+				articleVO = boardService.viewArticle(Integer.parseInt(articleNO));
+				request.setAttribute("article", articleVO);
+				nextPage = "/board2/viewArticle.jsp";
+				
 			}
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
