@@ -152,4 +152,82 @@ public class BoardDAO {
 		return article;
 	}
 
+	public void updateArticle(ArticleVO article) {
+		int articleNO = article.getArticleNO();
+		String title = article.getTitle();
+		String content = article.getContent();
+		String imageFileName = article.getImageFileName();
+		try {
+			conn = dataFactory.getConnection();
+			String query = "update t_board set title=?, content=?";
+			if (imageFileName != null && imageFileName.length() != 0) {
+				query += ",imageFileName=?";
+			}
+			query += " where articleNO=?";
+
+			System.out.println(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+
+			if (imageFileName != null && imageFileName.length() != 0) {
+				pstmt.setString(3, imageFileName);
+				pstmt.setInt(4, articleNO);
+			} else {
+				pstmt.setInt(3, articleNO);
+			}
+			pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteArticle(int articleNO) {
+		try {
+			conn = dataFactory.getConnection();
+			String query = "delete from t_board";
+			query += " where articleNO in (";
+			query += " select articleNO from t_board ";
+			query += " start with articleNO = ?";
+			query += " connect by prior articleNO = parentNO )";
+			System.out.println(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,  articleNO);
+			pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public List<Integer> selectRemovedArticles(int articleNO){
+		List<Integer> articleNOList = new ArrayList<Integer>();
+		try {
+			conn =dataFactory.getConnection();
+			String query = "select articleNO from t_board ";
+			query += " start with articleNO = ?";
+			query += " connect by prior articleNO = parentNO";
+			System.out.println(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, articleNO);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next())
+			{
+				articleNO = rs.getInt("articleNO");
+				articleNOList.add(articleNO);
+			}
+			pstmt.close();
+			conn.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articleNOList;
+	}
+	
+	
+
 }
