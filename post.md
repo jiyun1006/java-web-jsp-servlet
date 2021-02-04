@@ -3,10 +3,7 @@
 *****   
 
 >## 게시판 글 목록 구현   
-
-<br>
-
-**이전과는 다르게 sql 세부 기능은 DAO에 구현하도록 하고, service 단위의 기능들은 다른 클래스를 작성한다.**   
+>이전과는 다르게 sql 세부 기능은 DAO에 구현하도록 하고, service 단위의 기능들은 다른 클래스를 작성한다.   
 
 ```
 controller --> service클래스 --> DAO
@@ -51,10 +48,11 @@ conn = dataFactory.getConnection();
 
 
 >## 글쓰기 및 파일 업로드   
+>tomcat 컨테이너 내부에 파일 업로드 장소를 만들고, 파일 이름마다 구분되게 끔 폴더 생성.    
+
 
 <br>
 
-**tomcat 컨테이너 내부에 파일 업로드 장소를 만들고, 파일 이름마다 구분되게 끔 폴더 생성.**   
 
 *게시글 작성 코드*   
 ```java
@@ -125,4 +123,57 @@ try {
       }
       
 ...[생략]...
+```
+
+<br><br>
+
+>## 글 상세페이지   
+>작성한 게시물을 보는 상세페이지 기능을 만든다.    
+>업로드할 때, 저장되었던 파일을 해당 폴더에서 꺼내와서 상세페이지에 불러낸다.      
+
+<br>
+
+- 업로드 된 파일을 불러오는 기능을 하는 servlet   
+
+```java
+# 이미지 파일 이름과 번호를 가져온다.
+String imageFileName = (String) request.getParameter("imageFileName");
+String articleNO = request.getParameter("articleNO");
+
+OutputStream out = response.getOutputStream();
+
+# path 설정을 통해 upload 당시 저장된 폴더 위치를 저장한다.
+String path = ARTICLE_IMAGE_REPO + "/" + articleNO + "/" + imageFileName;
+File imageFile = new File(path);
+
+
+# 이미지 정보를 내려받는 데 필요한 response에 헤더 정보를 설정.
+response.setHeader("Cache-Control", "no-cache");
+response.addHeader("Content-disposition", "attachment;fileName="+ imageFileName);
+
+# 버퍼를 이용해서 8kb씩 전송한다.
+FileInputStream in = new FileInputStream(imageFile);
+    byte[] buffer = new byte[1024*8];
+    while(true) {
+        int count = in.read(buffer);
+        if (count == -1)
+            break;
+        out.write(buffer, 0, count);
+    }
+```   
+
+- 상세페이지 jsp    
+
+```java
+<c:if test="${not empty article.imageFileName && article.imageFileName!='null' }">
+    <tr>
+        <td width="20%" align="center" bgcolor="#FF9933" rowspan="2">이미지</td>
+        <td>
+        # input 을 hidden 타입으로 주고, 실제 이미지파일 이름을 저장한다.
+            <input type="hidden" name="originalFileName" value="${article.imageFileName }" />
+            
+        # img 태그에서 download.do 에 변수를 주어 servlet으로 전송한다.
+            <img src="${contextPath}/download.do?imageFileName=${article.imageFileName}&articleNO=${article.articleNO }" id="preview" width="10%"/>
+            
+...[생략]...  
 ```
