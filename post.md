@@ -177,3 +177,60 @@ FileInputStream in = new FileInputStream(imageFile);
             
 ...[생략]...  
 ```
+
+<br><br>
+
+>## 글 수정, 삭제   
+>게시글 상세 페이지에서 수정 기능과 삭제 기능을 설정한다. (feat. jquery)   
+
+<br>
+
+- 글 수정 기능   
+
+```java
+# articleVO를 설정해서 modArticle 메서드 변수로 넣어준다.
+
+articleVO.setParentNO(0);
+articleVO.setId("hong");
+articleVO.setTitle(title);
+articleVO.setContent(content);
+articleVO.setImageFileName(imageFileName);
+boardService.modArticle(articleVO);   
+
+# 수정을 하게 되면, 업로드 파일이 저장되있던 옛 폴더는 삭제하고 새로운 폴더를 만든다.
+
+if (imageFileName != null && imageFileName.length() != 0) {
+    String originalFileName = articleMap.get("originalFileName");
+    File srcFile = new File(ARTICLE_IMAGE_REPO + "/" + "temp" + "/" + imageFileName);
+    File destDir = new File(ARTICLE_IMAGE_REPO + "/" + articleNO);
+    destDir.mkdir();
+    FileUtils.moveFileToDirectory(srcFile, destDir, true);
+    File oldFile = new File(ARTICLE_IMAGE_REPO + "/" + articleNO + "/" + originalFileName);
+    oldFile.delete();
+}
+```    
+<br>
+
+- 글 삭제 기능   
+
+```java
+# articleNO를 받아와서 삭제할 글 번호를 설정한다.
+
+int articleNO = Integer.parseInt(request.getParameter("articleNO"));
+List<Integer> articleNOList = boardService.removeArticle(articleNO);
+
+
+# 부모글과 자식글에 해당하는 업로드 파일 폴더를 다 지운다.
+
+for (int _articleNO : articleNOList) {
+    File imgDir = new File(ARTICLE_IMAGE_REPO + "/" + _articleNO);
+    if (imgDir.exists()) {
+        FileUtils.deleteDirectory(imgDir);
+    }
+}
+```   
+
+
+
+
+
