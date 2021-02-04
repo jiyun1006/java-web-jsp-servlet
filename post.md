@@ -182,6 +182,8 @@ FileInputStream in = new FileInputStream(imageFile);
 
 >## 글 수정, 삭제   
 >게시글 상세 페이지에서 수정 기능과 삭제 기능을 설정한다. (feat. jquery)   
+>수정 버튼을 누르면, 기존의 버튼은 사라지게 하고, display : none 이었던 버튼들을 나타나게 한다.   
+
 
 <br>
 
@@ -209,6 +211,24 @@ if (imageFileName != null && imageFileName.length() != 0) {
     oldFile.delete();
 }
 ```    
+
+*버튼 jquery*   
+```javascript
+function fn_enable(obj){
+    document.getElementById("tr_btn_modify").style.display = "block";  --> 나타나야 할 태그
+    document.getElementById("tr_btn").style.display = "none";  --> 사라져야 할 태그
+    }
+
+# tr_btn_modify를 id 값으로 가지는 태그를 나타나게 한다.
+
+<tr id="tr_btn_modify">  ---> css에 display : none 을 준다.
+    <td colspan="2" align="center">
+        <input type=button value="수정반영하기" onClick="fn_modify_article(frmArticle)"> 
+        <input type=button value="취소" onClick="backToArticle(frmArticle)">
+    </td>
+</tr>
+```
+
 <br>
 
 - 글 삭제 기능   
