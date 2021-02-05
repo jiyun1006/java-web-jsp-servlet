@@ -1,14 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="articlesList" value="${articlesMap.articlesList}" />
+<c:set var="totArticles" value="${articlesMap.totArticles}" />
+<c:set var="section" value="${articlesMap.section}" />
+<c:set var="pageNum" value="${articlesMap.pageNum}" />
 <%
-request.setCharacterEncoding("utf-8");
+request.setCharacterEncoding("UTF-8");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <style>
+.no-uline {
+	text-decoration: none;
+}
+
+.sel-page {
+	text-decoration: none;
+	color: red;
+}
+
 .cls1 {
 	text-decoration: none;
 }
@@ -19,7 +32,7 @@ request.setCharacterEncoding("utf-8");
 }
 </style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>글목록창</title>
 </head>
 <body>
 	<table align="center" border="1" width="80%">
@@ -30,7 +43,7 @@ request.setCharacterEncoding("utf-8");
 			<td>작성일</td>
 		</tr>
 		<c:choose>
-			<c:when test="${empty articlesList }">
+			<c:when test="${empty articlesList}">
 				<tr height="10">
 					<td colspan="4">
 						<p align="center">
@@ -49,7 +62,7 @@ request.setCharacterEncoding("utf-8");
 							<c:choose>
 								<c:when test='${article.level > 1 }'>
 									<c:forEach begin="1" end="${article.level }" step="1">
-										<span style="padding-left: 20px"></span>
+										<span style="padding-left: 10px"></span>
 									</c:forEach>
 									<span style="font-size: 12px;">[답변]</span>
 									<a class='cls1' href="${contextPath}/board/viewArticle.do?articleNO=${article.articleNO}">${article.title}</a>
@@ -67,6 +80,45 @@ request.setCharacterEncoding("utf-8");
 			</c:when>
 		</c:choose>
 	</table>
-	<a class="cls1" href="${contextPath }/board/articleForm.do"><p class="cls2">글쓰기</p></a>
+	<div class="cls2">
+		<c:if test="${totArticles != null }">
+			<c:choose>
+				<c:when test="${totArticles >100 }">
+					<!-- 글 개수가 100 초과인경우 -->
+					<c:forEach var="page" begin="1" end="10" step="1">
+						<c:if test="${section >1 && page==1 }">
+							<a class="no-uline" href="${contextPath }/board/listArticles.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre </a>
+						</c:if>
+						<a class="no-uline" href="${contextPath }/board/listArticles.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+						<c:if test="${page ==10 }">
+							<a class="no-uline" href="${contextPath }/board/listArticles.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+						</c:if>
+					</c:forEach>
+				</c:when>
+				<c:when test="${totArticles ==100 }">
+					<!--등록된 글 개수가 100개인경우  -->
+					<c:forEach var="page" begin="1" end="10" step="1">
+						<a class="no-uline" href="#">${page } </a>
+					</c:forEach>
+				</c:when>
+				<c:when test="${totArticles< 100 }">
+					<!--등록된 글 개수가 100개 미만인 경우  -->
+					<c:forEach var="page" begin="1" end="${totArticles/10 +1}" step="1">
+						<c:choose>
+							<c:when test="${page==pageNum }">
+								<a class="sel-page" href="${contextPath }/board/listArticles.do?section=${section}&pageNum=${page}">${page } </a>
+							</c:when>
+							<c:otherwise>
+								<a class="no-uline" href="${contextPath }/board/listArticles.do?section=${section}&pageNum=${page}">${page } </a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+		</c:if>
+	</div>
+	<br>
+	<br>
+	<a class="cls1" href="${contextPath}/board/articleForm.do"><p class="cls2">글쓰기</p></a>
 </body>
 </html>
