@@ -29,7 +29,8 @@ readlink -f [링크위치]
 ```
 <br>
 
-**이미 설치된 jdk가 있다면 원하는 버전으로 바꾼다.**   
+**이미 설치된 jdk가 있다면 원하는 버전으로 바꾼다.**    
+일단 마무리
 
 ```
 sudo update-alternatives --config java
